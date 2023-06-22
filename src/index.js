@@ -1,37 +1,32 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-const { executablePath } = require('./.puppeteerrc.cjs');
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
+const generatePDF = require("./pdf");
 
 const app = express();
 
-app.get('/health-check', async(req, res)=>{
-    res.send("API running....");
-})
+app.use(bodyParser.json());
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
-app.get('/', async(req, res) => {
-    try {
-        const browser = await puppeteer.launch({
-            headless:true,
-        });
-        const page = await browser.newPage();
-        
-        // Perform necessary operations on the page
-        await page.goto('https://sales-agent.co.jp/');
-        // ...
-    
-        // Generate PDF
-        const pdfBuffer = await page.pdf({ format: 'A4' });
-        
-        await browser.close();
-    
-        // Send PDF in the response
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="generated.pdf"');
-        res.send(pdfBuffer);
-      } catch (error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('An error occurred while generating the PDF.');
-      }
+app.get("/health-check", async (req, res) => {
+  res.send("API running....");
 });
-console.log("Server listenign in port 8080...")
+
+app.post("/lp-maker/generate-pdf", async (req, res) => {
+  try {
+    console.log("req:", req.body);
+    const form_data = req.body.form_data;
+    const username = req.body.username;
+    const pdfBuffer = await generatePDF(form_data, username);
+    console.log("PDF:::", pdfBuffer);
+    res.send(pdfBuffer);
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+    res.status(500).send("An error occurred while generating the PDF.");
+  }
+});
+console.log("Server listenign in port 8080...");
 app.listen(8080);
+
+module.exports = { app };

@@ -1,0 +1,69 @@
+doctype html
+html
+  head
+    title My Pdf Page
+    style.
+        div.container{
+          width: 95%;
+          margin: auto
+          font-family: Noto sans JP, sans-serif
+        }
+        h1.title{
+            color: blue;
+            text-align: center;
+        }
+        h2.sub_category{
+          text-align: center;
+        }
+        img.image{
+          width: 200px;
+          object-fit: contain;
+        }
+        .question-class{
+            color: red;
+        };
+        body{
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           height: 100vh;
+        }
+  body
+   div.container
+    each response in data 
+      h2.sub_category=response.sub_category_title
+      if response.has_relation
+        each item in  response.questions
+          h4=item.point 
+          h4=item.point_answer 
+            each list in item.sub_questions 
+                h4=list.question 
+                if list.answer.includes("https://firebasestorage.googleapis.com/")
+                  img.image(src=list.answer)
+                else
+                  p=list.answer || "---"
+      else if response.questions.title 
+        each item in  response.questions.sub_questions
+          h4=item.question 
+          if item.answer.includes("https://firebasestorage.googleapis.com/")
+            img.image(src=item.answer)
+          else
+            p=item.answer || "---"
+
+      else if response.sub_category_title == "オプション" || response.sub_category_title == "制作プラン"
+        each item in response.questions 
+            h4=item.question 
+            each option in item.answer
+              p=option.title
+              p=option.price
+              img.image(src=option.image_url)
+
+      else 
+        each item in response.questions 
+            h4=item.question 
+            if item.answer.includes("https://firebasestorage.googleapis.com/")
+              img.image(src=item.answer)
+            else
+              p=item.answer || "---"
+
