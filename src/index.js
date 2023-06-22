@@ -4,6 +4,10 @@ const { executablePath } = require('./.puppeteerrc.cjs');
 
 const app = express();
 
+app.get('/health-check', async(req, res)=>{
+    res.send("API running....");
+})
+
 app.get('/', async(req, res) => {
     try {
         const browser = await puppeteer.launch({
