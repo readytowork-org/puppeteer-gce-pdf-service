@@ -2,7 +2,7 @@ const path = require("path");
 const pug = require("pug");
 const puppeteer = require("puppeteer");
 
-const GeneratePDF = async (data, username) => {
+const GeneratePDF = async (data) => {
   // pug templaing fo pdf
   const pdfTemplate = path.join(__dirname, "views", "pdftemplate.pug");
   const compiledTemplate = pug.compileFile(pdfTemplate);
@@ -42,4 +42,30 @@ const GeneratePDF = async (data, username) => {
   return await pdfBuffer;
 };
 
-module.exports = GeneratePDF;
+const GenerateURLIntoPDF = async (url) => {
+  // Launch a headless browser
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+  const page = await browser.newPage();
+  try {
+    await page.goto(url, { waitUntil: "networkidle0" });
+    const pdfBuffer = await page.pdf({ format: "A4" });
+
+    return pdfBuffer;
+  } finally {
+    await browser.close();
+  }
+};
+
+function validateUrl(url) {
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+module.exports = { GeneratePDF, validateUrl, GenerateURLIntoPDF };
