@@ -44,6 +44,7 @@ const GeneratePDF = async (data) => {
       bottom: "20px", // Set the bottom margin to 20 pixels
       left: "20px", // Set the left margin to 20 pixels
     },
+    preferCSSPageSize: true,
   });
   await browser.close();
   // Convert the pdfBuffer variable to a string
