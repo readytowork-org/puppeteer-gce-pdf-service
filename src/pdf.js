@@ -1,6 +1,7 @@
 const path = require("path");
 const pug = require("pug");
 const puppeteer = require("puppeteer");
+const fontpath = __dirname + "/fonts/noto-sans-jp.ttf";
 
 const GeneratePDF = async (data) => {
   // pug templaing fo pdf
@@ -28,6 +29,12 @@ const GeneratePDF = async (data) => {
   const page = await browser.newPage();
   await page.setContent(userHtmlBody);
   console.log("userhtml:", userHtmlBody);
+  await page.addStyleTag({
+    content: `@font-face {
+      font-family: 'Noto Sans JP';
+      src: url('/fonts/noto-sans-jp.ttf');
+    }`,
+  });
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
