@@ -26,7 +26,6 @@ const GeneratePDF = async (data) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-  await page.setFont(path.join(__dirname, "fonts", "noto-sans-jp.ttf"));
   await page.setContent(userHtmlBody);
   console.log("userhtml:", userHtmlBody);
   const pdfBuffer = await page.pdf({
