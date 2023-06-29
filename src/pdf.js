@@ -27,7 +27,6 @@ const GeneratePDF = async (data) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-  await page.setContent(userHtmlBody);
   console.log("userhtml:", userHtmlBody);
   await page.addStyleTag({
     content: `@font-face {
@@ -35,6 +34,8 @@ const GeneratePDF = async (data) => {
       src: url('/fonts/noto-sans-jp.ttf');
     }`,
   });
+  await page.setContent(userHtmlBody);
+  const screenshot = await page.screenshot({ path: "screenshot.png" });
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
