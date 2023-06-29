@@ -34,6 +34,7 @@ const GeneratePDF = async (data) => {
       src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap") format('truetype');
     }`,
   });
+  await page.evaluateHandle("document.fonts.ready");
   await page.setContent(userHtmlBody);
   const pdfBuffer = await page.pdf({
     format: "A4",
