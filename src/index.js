@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 
-const { generatePDF, validateUrl, GenerateURLIntoPDF } = require("./pdf");
+const { GeneratePDF, validateUrl, GenerateURLIntoPDF } = require("./pdf");
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.post("/lp-maker/generate-pdf", async (req, res) => {
   try {
     console.log("req:", req.body);
     const form_data = req.body.form_data;
-    const pdfBuffer = await generatePDF(form_data);
+    const pdfBuffer = await GeneratePDF(form_data);
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "attachment; filename=generated.pdf");
     res.send(pdfBuffer);
