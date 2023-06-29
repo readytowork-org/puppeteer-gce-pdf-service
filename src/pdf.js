@@ -31,7 +31,7 @@ const GeneratePDF = async (data) => {
   await page.addStyleTag({
     content: `@font-face {
       font-family: 'Noto Sans JP';
-      src: url('/fonts/noto-sans-jp.ttf') format('truetype');
+      src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap") format('truetype');
     }`,
   });
   await page.setContent(userHtmlBody);
