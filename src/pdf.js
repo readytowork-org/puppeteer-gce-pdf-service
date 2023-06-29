@@ -31,11 +31,10 @@ const GeneratePDF = async (data) => {
   await page.addStyleTag({
     content: `@font-face {
       font-family: 'Noto Sans JP';
-      src: url('/fonts/noto-sans-jp.ttf');
+      src: url('/fonts/noto-sans-jp.ttf') format('truetype');
     }`,
   });
   await page.setContent(userHtmlBody);
-  const screenshot = await page.screenshot({ path: "screenshot.png" });
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
