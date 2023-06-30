@@ -30,7 +30,7 @@ const GeneratePDF = async (data) => {
   await page.addStyleTag({
     content: `@font-face {
       font-family: 'Noto Sans JP';
-      src: url("/fonts/noto-sans-jp.ttf") format('ttf');
+      src: url("/home/sumit_sapkota/puppeteer-ce-pdf-service/fonts/noto-sans-jp.ttf") format('ttf');
       body {
         font-family: 'Noto Sans JP', sans-serif;
       }
