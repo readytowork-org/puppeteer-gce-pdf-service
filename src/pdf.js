@@ -21,9 +21,9 @@ const GeneratePDF = async (data) => {
     data: data,
   });
   // Launch a headless browser
-  console.log("before launch browser");
+  console.log("before launch browser", userHtmlBody);
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
@@ -36,13 +36,8 @@ const GeneratePDF = async (data) => {
       }
     }`,
   });
-  // const fonts = {
-  //   "Custom Font":
-  //     "https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff",
-  // };
-  // await page.goto("data:text/html," + userHtmlBody);
-  await page.setContent(userHtmlBody);
   await page.evaluateHandle("document.fonts.ready");
+  await page.setContent(userHtmlBody);
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
