@@ -28,14 +28,14 @@ const GeneratePDF = async (data) => {
   });
   const page = await browser.newPage();
 
-  await page.goto("data:text/html;charset=UTF-8," + userHtmlBody, {
-    waitUntil: "networkidle0",
-  });
+  // await page.goto("data:text/html;charset=UTF-8," + userHtmlBody, {
+  //   waitUntil: "networkidle0",
+  // });
   // await page.goto("data:text/html," + userHtmlBody, {
   //   waitUntil: "networkidle2",
   // });
-  // await page.setContent(userHtmlBody, { waitUntil: "domcontentloaded" });
-  await page.screenshot({ path: "screenshot.png" });
+  await page.setContent(userHtmlBody, { waitUntil: "networkidle0" });
+  await page.screenshot();
 
   const pdfBuffer = await page.pdf({
     format: "A4",
