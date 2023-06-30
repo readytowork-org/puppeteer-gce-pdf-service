@@ -28,20 +28,20 @@ const GeneratePDF = async (data) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-  // await page.addStyleTag({
-  //   content: `@font-face {
-  //     font-family: 'Noto Sans JP';
-  //     src: url("/fonts/noto-sans-jp.ttf") format('ttf');
-  //     body {
-  //       font-family: 'Noto Sans JP', sans-serif;
-  //     }
-  //   }`,
-  // });
-  // await page.evaluateHandle("document.fonts.ready");
+  await page.addStyleTag({
+    content: `@font-face {
+      font-family: 'Noto Sans JP';
+      src: url("/fonts/noto-sans-jp.ttf") format('ttf');
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+      }
+    }`,
+  });
+  await page.evaluateHandle("document.fonts.ready");
 
   const html = fs.readFileSync("test.html", "utf-8");
 
-  await page.setContent(html, { waitUntil: "networkidle0" });
+  await page.setContent(html, { waitUntil: "domcontentloaded" });
 
   await page.emulateMediaType("screen");
   const pdfBuffer = await page.pdf({
