@@ -38,6 +38,7 @@ const GeneratePDF = async (data) => {
   });
   await page.evaluateHandle("document.fonts.ready");
   await page.setContent(userHtmlBody);
+  await page.emulateMediaType("screen");
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
@@ -46,7 +47,6 @@ const GeneratePDF = async (data) => {
       bottom: "20px", // Set the bottom margin to 20 pixels
       left: "20px", // Set the left margin to 20 pixels
     },
-    printBackground: true,
   });
   await browser.close();
   // Convert the pdfBuffer variable to a string
