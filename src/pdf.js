@@ -37,10 +37,12 @@ const GeneratePDF = async (data) => {
     }`,
   });
   await page.evaluateHandle("document.fonts.ready");
-
+  // await page.goto("data:text/html," + userHtmlBody, {
+  //   waitUntil: "networkidle2",
+  // });
   await page.setContent(userHtmlBody, { waitUntil: "domcontentloaded" });
+  await page.screenshot({ path: "screenshot.png" });
 
-  await page.emulateMediaType("screen");
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
