@@ -30,12 +30,16 @@ const GeneratePDF = async (data) => {
   await page.addStyleTag({
     content: `@font-face {
       font-family: 'Noto Sans JP';
-      src: url("https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff") format('woff');
+      src: url("/fonts/noto-sans-jp.ttf") format('ttf');
       body {
         font-family: 'Noto Sans JP', sans-serif;
       }
     }`,
   });
+  const fonts = {
+    "Custom Font":
+      "https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff",
+  };
   // await page.goto("data:text/html," + userHtmlBody);
   await page.evaluateHandle("document.fonts.ready");
   await page.setContent(userHtmlBody);
@@ -48,6 +52,7 @@ const GeneratePDF = async (data) => {
       left: "20px", // Set the left margin to 20 pixels
     },
     printBackground: true,
+    font: fonts,
   });
   await browser.close();
   // Convert the pdfBuffer variable to a string
