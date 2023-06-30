@@ -28,7 +28,7 @@ const GeneratePDF = async (data) => {
   });
   const page = await browser.newPage();
   await page.goto("data:text/html," + userHtmlBody, {
-    waitUntil: "networkidle",
+    waitUntil: "networkidle2",
   });
   await page.addStyleTag({
     content: `@font-face {
