@@ -27,11 +27,10 @@ const GeneratePDF = async (data) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-  console.log("userhtml:", userHtmlBody);
   await page.addStyleTag({
     content: `@font-face {
       font-family: 'Noto Sans JP';
-      src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap") format('truetype');
+      src: url("https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff") format('woff');
     }`,
   });
   await page.evaluateHandle("document.fonts.ready");
