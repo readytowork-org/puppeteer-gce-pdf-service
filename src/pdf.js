@@ -42,7 +42,6 @@ const GeneratePDF = async (data) => {
 
   await page.emulateMediaType("screen");
   const pdfBuffer = await page.pdf({
-    path: "techsolutionstuff.pdf",
     format: "A4",
     margin: {
       top: "40px", // Set the top margin to 20 pixels
