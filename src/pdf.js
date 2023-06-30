@@ -23,7 +23,7 @@ const GeneratePDF = async (data) => {
   // Launch a headless browser
   console.log("before launch browser");
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
@@ -36,13 +36,13 @@ const GeneratePDF = async (data) => {
       }
     }`,
   });
-  const fonts = {
-    "Custom Font":
-      "https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff",
-  };
+  // const fonts = {
+  //   "Custom Font":
+  //     "https://fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Regular.woff",
+  // };
   // await page.goto("data:text/html," + userHtmlBody);
-  await page.evaluateHandle("document.fonts.ready");
   await page.setContent(userHtmlBody);
+  await page.evaluateHandle("document.fonts.ready");
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
@@ -52,7 +52,6 @@ const GeneratePDF = async (data) => {
       left: "20px", // Set the left margin to 20 pixels
     },
     printBackground: true,
-    font: fonts,
   });
   await browser.close();
   // Convert the pdfBuffer variable to a string
