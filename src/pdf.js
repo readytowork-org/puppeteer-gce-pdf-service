@@ -27,20 +27,14 @@ const GeneratePDF = async (data) => {
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-  await page.addStyleTag({
-    content: `@font-face {
-      font-family: 'Noto Sans JP';
-      src: url("/home/sumit_sapkota/puppeteer-ce-pdf-service/fonts/noto-sans-jp.ttf") format('ttf');
-      body {
-        font-family: 'Noto Sans JP', sans-serif;
-      }
-    }`,
+
+  await page.goto("data:text/html;charset=UTF-8," + userHtmlBody, {
+    waitUntil: "networkidle0",
   });
-  await page.evaluateHandle("document.fonts.ready");
   // await page.goto("data:text/html," + userHtmlBody, {
   //   waitUntil: "networkidle2",
   // });
-  await page.setContent(userHtmlBody, { waitUntil: "domcontentloaded" });
+  // await page.setContent(userHtmlBody, { waitUntil: "domcontentloaded" });
   await page.screenshot({ path: "screenshot.png" });
 
   const pdfBuffer = await page.pdf({
