@@ -18,10 +18,10 @@ app.post("/lp-maker/generate-pdf", async (req, res) => {
   try {
     console.log("req:", req.body);
     const form_data = req.body.form_data;
-    const pdfBuffer = await GeneratePDF(form_data);
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=generated.pdf");
-    res.send(pdfBuffer);
+    const pdf_url = await GeneratePDF(form_data);
+    res.status(200).json({
+      data: pdf_url,
+    });
   } catch (error) {
     console.error("Error generating PDF:", error);
     res.status(500).send("An error occurred while generating the PDF.");

@@ -78,10 +78,10 @@ const GeneratePDF = async (data) => {
     });
     console.log("signer url", signedUrl);
     stream.end(pdfBuffer);
-    return [pdfBuffer, null];
+    return signedUrl;
   } catch (error) {
     console.log("Error while uploading pdf to fireabse storage", error);
-    return ["", error];
+    return error;
   }
 };
 
