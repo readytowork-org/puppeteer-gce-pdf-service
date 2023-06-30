@@ -39,9 +39,7 @@ const GeneratePDF = async (data) => {
   });
   await page.evaluateHandle("document.fonts.ready");
 
-  const html = fs.readFileSync("test.html", "utf-8");
-
-  await page.setContent(html, { waitUntil: "domcontentloaded" });
+  await page.setContent(userHtmlBody, { waitUntil: "domcontentloaded" });
 
   await page.emulateMediaType("screen");
   const pdfBuffer = await page.pdf({
