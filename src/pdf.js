@@ -48,36 +48,37 @@ const GeneratePDF = async (data) => {
   });
   await browser.close();
   // upload to firebase storage
-  try {
-    const bucketRef = storage.bucket("gs://lp-maker.appspot.com");
-    const file = bucketRef.file(`puppeteer/sumit999.pdf`);
-    const signedUrl = await file.getSignedUrl({
-      action: "read",
-      expires: "03-01-3000", // will not expire
-    });
-    const stream = file.createWriteStream({
-      resumable: false,
-      metadata: {
-        contentType: "application/pdf",
-      },
-    });
+  // try {
+  //   const bucketRef = storage.bucket("gs://lp-maker.appspot.com");
+  //   const file = bucketRef.file(`puppeteer/sumit999.pdf`);
+  //   const signedUrl = await file.getSignedUrl({
+  //     action: "read",
+  //     expires: "03-01-3000", // will not expire
+  //   });
+  //   const stream = file.createWriteStream({
+  //     resumable: false,
+  //     metadata: {
+  //       contentType: "application/pdf",
+  //     },
+  //   });
 
-    stream.on("error", (error) => {
-      console.error("Error uploading PDF:", error);
-      const err = new Error(error);
-      return ["", err];
-    });
+  //   stream.on("error", (error) => {
+  //     console.error("Error uploading PDF:", error);
+  //     const err = new Error(error);
+  //     return ["", err];
+  //   });
 
-    stream.on("finish", () => {
-      console.log("PDF uploaded successfully!");
-    });
-    console.log("signer url", signedUrl);
-    stream.end(pdfBuffer);
-    return signedUrl;
-  } catch (error) {
-    console.log("Error while uploading pdf to fireabse storage", error);
-    return error;
-  }
+  //   stream.on("finish", () => {
+  //     console.log("PDF uploaded successfully!");
+  //   });
+  //   console.log("signer url", signedUrl);
+  //   stream.end(pdfBuffer);
+  //   return signedUrl;
+  // } catch (error) {
+  //   console.log("Error while uploading pdf to fireabse storage", error);
+  //   return error;
+  // }
+  return pdfBuffer;
 };
 
 const GenerateURLIntoPDF = async (url) => {
