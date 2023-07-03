@@ -21,19 +21,11 @@ const GeneratePDF = async (data) => {
     data: data,
   });
   // Launch a headless browser
-  console.log("before launch browser", userHtmlBody);
   const browser = await puppeteer.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
   const page = await browser.newPage();
-
-  // await page.goto("data:text/html;charset=UTF-8," + userHtmlBody, {
-  //   waitUntil: "networkidle0",
-  // });
-  // await page.goto("data:text/html," + userHtmlBody, {
-  //   waitUntil: "networkidle2",
-  // });
   await page.setContent(userHtmlBody, { waitUntil: "networkidle0" });
   await page.screenshot();
 

@@ -1,17 +1,19 @@
 doctype html
 html
   head
-    title My Pdf Page
+    title Simulation PDF
     style.
-        @font-face {
-        font-family: 'Noto Sans JP';
-        src: url('/fonts/noto-sans-jp.ttf');
-        /* You can include more font formats (e.g., woff, woff2) if available */
-        }
         div.container{
-          width: 95%;
+          width: 100%;
           margin: auto;
-          font-family: Noto Sans JP,
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .divider {
+          height: 30px;
+          width: 100%;
+          color: blue;
         }
         h1.title{
             color: blue;
@@ -27,16 +29,9 @@ html
         .question-class{
             color: red;
         };
-        body{
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           justify-content: center;
-           height: 100vh;
-           font-family: "Noto Sans JP"
-        }
   body
-   div.container
+    div.container
+    div.divider
     each response in data 
       h2.sub_category=response.sub_category_title
       if response.has_relation
