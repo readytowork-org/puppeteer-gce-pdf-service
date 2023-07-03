@@ -2,22 +2,24 @@ const admin = require("firebase-admin");
 
 const serviceAccount = {
   type: "service_account",
-  project_id: "lp-maker",
-  private_key_id: "0e3580b5787a884c962b7b4abb870e9d71312bf0",
+  project_id: "lp-designer",
+  private_key_id: "8915ad0a21dc4f06723448484a05d98cafd879c8",
   private_key:
-    "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCKQO6w1GB0ETvs\n+5w+HT+WavQhaTCZh1GzvJBxkyWC2PinD6/l0zE9ojF2jzqNu8TDp8p7tSPiC94w\nWNytWUNAZfthopvonfZxs5C1qwqhUVS4XFquF8bRRPOsLz9GL62fTCXPJCJqdmL/\nar9a4/L2HVxmGbX1pKiQLx9gA5usHuWCP6tk/ZyYQqXgvIncw31xGbH8VQxNb/bL\nexwEdDoYtDrOQ1yhz/FyHOF2NVBiazPBI3fN9GEpV+b3uLMh8u/9Lvs/IvH9fPUy\nFZkgZ1J+9Ww3HZREZS+p5FXuRmPA9tmBfYR4q7aeP+bU/9Dv3xSAzUmGmA+iv1YG\nZNnc9hB1AgMBAAECggEAE9ydOJ6M1s/iWzrl049HIy3Csd7B988sH9Vkrkm0oguC\nuW7JrIupL3toKL9jQEPBUlco10SK3v7T0P/11W+VTPX5uylDGxQ/zfjn6WQlAaTv\nYLxf3f1AzQVfY8AL5+I8oBMuprIVwaliso1cPUtcjHAOZgVRPJ+HBI5zLvYwZ0sj\nmsU1Q4jrKVKM29VvwePF/swSncxpdJxEskdnLPUkstr6qXaFYxet0S0LAtd0vi43\nzsnBcl4rkFv5uVCbNmU9PD3z1J56mfd06UnnqoQ4+hTgsHBq+L+CbW+iBdFGKmXA\n+E/K2pU6F/jIctSLVhV3IitpOIrIlZqdr8IYWpKBVwKBgQDCAFQSsXr5FXro4aB7\nRbrqL4SqGJVlcL7tQpOd6d5Of2XpvIr+tywIQxYiSD7Kq9vspbwvaFheyVs/M70r\nHnNNk4KbLXPqWOmBOwWOvJ9BMMBhWdnYwLKOERHeaiAVEYjx0GsW/QD8ncffCA+g\nU8eh29NqUTVCrdzYazoHsdLqkwKBgQC2b8RS6mJZfh7T92AB3Xt+OilzYoyauukm\nQDe7Zhj/+AbxJyZupial8RrDQt5bZZ/p94my/POFz7p44b4FmJDCu7y7k14trKG7\nLIvTN/C9X/BrsYkMFDWjRUiBStxmgPRWPG/oUpW7H/Qzen0gJ/xjQEomOwTKq89q\n+/mJJjcV1wKBgQCkHAECuy4qrRgHDm5iOU9vsXjJJviiEikArbQP/nk28CA3BG6U\nIEFYT9/WakTrz0vAOUci12MB89WDdnIMmrqxIhp2yJFo6YPF9TazUy5oyCPFdmuJ\nJyEkep4iBqZTDD1LSaJ9lNKT36jnK3uEhbq3WizSoBWs7USHstUpEy03jwKBgCZX\nyz1aAZ2pgjUuksERmbjn5HpZxg9nJUVizdPXG34A1QSuI8exqAHMcMGFNlKjQz7b\nRdeWjmAbTqfFWji23gXvizUpPev/kmZScHjOEwzaMx+PSqx9OuC72QdDgpsQk0nk\nneiIIuwXRS3kmpO9k7AQfQUX9mPaRFfJ6aJHo+A1AoGAcootHc0S73vKP/Uhe19T\nDgyfOZaJ6a/UXnxXCV8eeFRyllq8FPBmotQo/W51gfeAKoRcf0ue6gtwqPPlFzYS\n89AdPIEd8UjcwwRJxe3EOpt4oh6sD8yFbLxzvBvWyPTc4K/MQb4CJ7rWPSlMlj85\nVXhHQGKAQcr95Xp4DkPz+aQ=\n-----END PRIVATE KEY-----\n",
-  client_email: "firebase-adminsdk-c3pa1@lp-maker.iam.gserviceaccount.com",
-  client_id: "108633663149297808665",
+    "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC3hO1EX39YLejw\nYEzEoQv40erXun02feBsrQUkadgQ/iXE+FkJNKuSihzNFzrgZjXP+R259sS1WgZE\nzvwfTG+U7QLswg5M+kC3ed92WeTHBIgFAzBgx8j3mkTjW0EY3UavOdSML7bZP6gX\nEsmG8H062ZfSTAUx9sWBQAzL9crm+y3gjApXs3Ze+6H0SL/5AzjjkVGYigvHSiiq\nhcvov//wfCiBYkMQjw/DLyj/R7va0i4WZRVbAqzAtw5nN0u7NHI81SBMkt7Qm4MF\nUj8h1VKN4hSLNl9uGuzBWNRtVOwdquwHYcdEyOtQRw5ZeeCQknBvePPVJnhzx7RE\nmV9cekv3AgMBAAECggEABUi3iDNzuDdCMMGlFDhK3vQ0XdfJySrgrmBg+IZvqTWY\nIs6/yYsRsZt2btVPZayrufxDRdp8GXipG4wWKFSMFe6pGeYQgVjnSiEhNQgrlStl\nOze3SeIWwEJZ323+NtgQM/VnUE4DZsf1cAyjbtY31Nz1CSIVODYRw8HzXGAMYpAm\nYnA8U8ABtkU7iJxLf4nrOUhOEqEqx9Qya3IEtC4tkZC800gjjc6s2WXQi22sMoPC\naTVKsyMJXhtjfMiecSNE5limPkU1U6+5GQIUR1X9w/k9VHjNQATYBO9tLnQLTFse\nZLrlXDRNCLkoyQgnwarX32gm1vHzaflVraJYbdxzCQKBgQDp1FwKb2zHwltcOCDh\nrKSG65qEoxlpO7FD48TPhg4RREmexSprcAPYV1ekrZO0DzCV96bljPrJC81E8n6h\nKIbRee0R6uyjibwHdMnd7mzbjPthkmM6ByC4GZETOAXmSGmW+R82UiAaihX9Oqv/\nbL8MdF8bpSqI9hu2w91QfdS7AwKBgQDI62h31lKxjxEsHZYmOS8+oECwnRbnmXAp\nEH8ITA4VPIDmQZTuSl2LQJw9MptBKAZnSPme2znhpvkJVLChpu54hWAs6r7XcQ7b\n7FqfJLg436mbz/jDVzo8AuMB79FLgrbaKeV82xmFV1O6Z4dcwUBkWpsZkJsoWEMr\nFy8X7mZ+/QKBgBJU9cpTpgGbOTJnrBxFPrjdK8YOS2W2qlUaPEnQxrWP1v29k2/M\n3mBNqK9edF//eN2pBsqkXNz6MeOf51GXLcqqdm2bL2Y63CTxgQoHMT2dNfAWW/Um\nregBCSCqmbvOHYkaitnlYmLyRHsP6IAj9G5ziSlPr6ABO3b+sBEpbE4lAoGAEx78\nMTNvaUCBVN539KlKir47idNZY68hknbkcAi06mZ4qfEh2E+xeVgrxlMznU7O1TOH\ntguNBaGbX7z0ll3JoiSnU37/rIcw79MdiLm44oi+nnp7ZTO+8gkgS4XkODh3aGnG\nUkyTsDHwYPQLWNN3alWJHzS4320O72HkdHWWwY0CgYAoB5mTzCK1F56qijogllfH\npWZmOFmYB6tzjBjQbhZboJA+gBZolO6pFphrzbeKYZvtsehpK3U86YE6BGB4OElt\nf8GK8b3vuq4vig4IP8GPXkJl5DkUGHc4eQuqLtVNGCfUaL3X1jYDVZhiz6fZOU/L\nPppWSrMeqK6/6w5fpsJaIw==\n-----END PRIVATE KEY-----\n",
+  client_email: "firebase-adminsdk-p9o8v@lp-designer.iam.gserviceaccount.com",
+  client_id: "105849594287113873159",
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-c3pa1%40lp-maker.iam.gserviceaccount.com",
+    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-p9o8v%40lp-designer.iam.gserviceaccount.com",
+  universe_domain: "googleapis.com",
 };
+
 admin.initializeApp({
-  projectId: "lp-maker",
+  projectId: "lp-designer",
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "lp-maker.appspot.com",
+  storageBucket: "lp-designer.appspot.com",
 });
 
 const storage = admin.storage();

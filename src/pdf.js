@@ -41,7 +41,7 @@ const GeneratePDF = async (data) => {
   await browser.close();
   // upload to firebase storage
   try {
-    const bucketRef = storage.bucket("gs://lp-maker.appspot.com");
+    const bucketRef = storage.bucket("gs://lp-designer.appspot.com");
     const file = bucketRef.file(`simulation_pdf/${Date.now().toString()}.pdf`);
     const signedUrl = await file.getSignedUrl({
       action: "read",
