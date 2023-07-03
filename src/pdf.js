@@ -1,7 +1,6 @@
 const path = require("path");
 const pug = require("pug");
 const puppeteer = require("puppeteer");
-const { storage } = require("./firebase");
 
 const GeneratePDF = async (data) => {
   // pug templaing fo pdf
@@ -32,44 +31,13 @@ const GeneratePDF = async (data) => {
   const pdfBuffer = await page.pdf({
     format: "A4",
     margin: {
-      top: "40px", // Set the top margin to 20 pixels
+      top: "30px", // Set the top margin to 20 pixels
       right: "20px", // Set the right margin to 20 pixels
       bottom: "20px", // Set the bottom margin to 20 pixels
       left: "20px", // Set the left margin to 20 pixels
     },
   });
   await browser.close();
-  // upload to firebase storage
-  // try {
-  //   const bucketRef = storage.bucket("gs://lp-maker.appspot.com");
-  //   const file = bucketRef.file(`puppeteer/sumit999.pdf`);
-  //   const signedUrl = await file.getSignedUrl({
-  //     action: "read",
-  //     expires: "03-01-3000", // will not expire
-  //   });
-  //   const stream = file.createWriteStream({
-  //     resumable: false,
-  //     metadata: {
-  //       contentType: "application/pdf",
-  //     },
-  //   });
-
-  //   stream.on("error", (error) => {
-  //     console.error("Error uploading PDF:", error);
-  //     const err = new Error(error);
-  //     return ["", err];
-  //   });
-
-  //   stream.on("finish", () => {
-  //     console.log("PDF uploaded successfully!");
-  //   });
-  //   console.log("signer url", signedUrl);
-  //   stream.end(pdfBuffer);
-  //   return signedUrl;
-  // } catch (error) {
-  //   console.log("Error while uploading pdf to fireabse storage", error);
-  //   return error;
-  // }
   return pdfBuffer;
 };
 
