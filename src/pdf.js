@@ -42,7 +42,7 @@ const GeneratePDF = async (data) => {
   // upload to firebase storage
   try {
     const bucketRef = storage.bucket("gs://lp-maker.appspot.com");
-    const file = bucketRef.file(`puppeteer/sumit999.pdf`);
+    const file = bucketRef.file(`simulation_pdf/${Date.now().toString()}.pdf`);
     const signedUrl = await file.getSignedUrl({
       action: "read",
       expires: "03-01-3000", // will not expire
@@ -72,29 +72,4 @@ const GeneratePDF = async (data) => {
   }
 };
 
-const GenerateURLIntoPDF = async (url) => {
-  // Launch a headless browser
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-  const page = await browser.newPage();
-  try {
-    await page.goto(url, { waitUntil: "networkidle0" });
-    const pdfBuffer = await page.pdf({ format: "A4" });
-    return pdfBuffer;
-  } finally {
-    await browser.close();
-  }
-};
-
-function validateUrl(url) {
-  try {
-    new URL(url);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
-
-module.exports = { GeneratePDF, validateUrl, GenerateURLIntoPDF };
+module.exports = { GeneratePDF };
