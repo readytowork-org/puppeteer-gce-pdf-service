@@ -16,11 +16,9 @@ app.get("/health-check", async (req, res) => {
 
 app.post("/lp-maker/generate-pdf", async (req, res) => {
   try {
-    console.log("req:", req.body);
     const form_data = req.body.form_data;
     const pdf_url = await GeneratePDF(form_data);
-    res.contentType("application/pdf");
-    res.send(pdf_url);
+    res.send({ data: pdf_url });
   } catch (error) {
     console.error("Error generating PDF:", error);
     res.status(500).send("An error occurred while generating the PDF.");
