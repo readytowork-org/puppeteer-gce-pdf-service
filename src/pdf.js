@@ -20,6 +20,7 @@ const GeneratePDF = async (data) => {
   const userHtmlBody = compiledTemplate({
     data: data,
   });
+  console.log("data:", data[data.length - 1]);
   // Launch a headless browser
   const browser = await puppeteer.launch({
     headless: true,

@@ -57,8 +57,13 @@ html
             h4=item.question 
             each option in item.answer
               p=option.title
-              p=option.price
               img.image(src=option.image_url)
+              p=option.price + '円'
+              if response.sub_category_title == "オプション"
+                p='希望人数:' + item.modelCasting.noOfModel
+                p='備考:'+item.modelCasting.remarks
+                
+              
 
       else 
         each item in response.questions 
