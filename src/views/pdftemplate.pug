@@ -42,6 +42,8 @@ html
                 h4=list.question 
                 if list.answer.includes("https://firebasestorage.googleapis.com/")
                   img.image(src=list.answer)
+                  br
+                  a(href=list.answer) 画像ダウンロードはこちら
                 else
                   p=list.answer || "---"
       else if response.questions.title 
@@ -49,6 +51,8 @@ html
           h4=item.question 
           if item.answer.includes("https://firebasestorage.googleapis.com/")
             img.image(src=item.answer)
+            br
+            a(href=item.answer) 画像ダウンロードはこちら
           else
             p=item.answer || "---"
 
@@ -62,14 +66,13 @@ html
               if option.title== "モデルキャスティング"
                 p='希望人数:' + item.modelCasting.noOfModel
                 p='備考:'+item.modelCasting.remarks
-                
-              
-
       else 
         each item in response.questions 
             h4=item.question 
             if item.answer.includes("https://firebasestorage.googleapis.com/")
               img.image(src=item.answer)
+              br
+              a(href=item.answer) 画像ダウンロードはこちら
             else
               p=item.answer || "---"
 
