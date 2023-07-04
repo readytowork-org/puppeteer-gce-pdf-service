@@ -59,7 +59,7 @@ html
               p=option.title
               img.image(src=option.image_url)
               p=option.price + '円'
-              if response.sub_category_title == "オプション"
+              if option.title== "モデルキャスティング"
                 p='希望人数:' + item.modelCasting.noOfModel
                 p='備考:'+item.modelCasting.remarks
                 
