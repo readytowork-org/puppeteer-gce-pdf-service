@@ -73,4 +73,61 @@ const GeneratePDF = async (data) => {
   }
 };
 
-module.exports = { GeneratePDF };
+const GenerateInvoicePDF = async (data) => {
+  // Launch a headless browser
+  console.log("before launch browser", data);
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+  const page = await browser.newPage();
+
+  await page.setContent(data, { waitUntil: "networkidle0" });
+  await page.screenshot();
+
+  const pdfBuffer = await page.pdf({
+    format: "A4",
+    margin: {
+      top: "40px", // Set the top margin to 20 pixels
+      right: "20px", // Set the right margin to 20 pixels
+      bottom: "20px", // Set the bottom margin to 20 pixels
+      left: "20px", // Set the left margin to 20 pixels
+    },
+  });
+  await browser.close();
+  // return pdfBuffer;
+
+  // upload to firebase storage
+  try {
+    const bucketRef = storage.bucket("gs://lp-designer.appspot.com");
+    const file = bucketRef.file(`invoice/${Date.now().toString()}.pdf`);
+    const signedUrl = await file.getSignedUrl({
+      action: "read",
+      expires: "03-01-3000", // will not expire
+    });
+    const stream = file.createWriteStream({
+      resumable: false,
+      metadata: {
+        contentType: "application/pdf",
+      },
+    });
+
+    stream.on("error", (error) => {
+      console.error("Error uploading PDF:", error);
+      const err = new Error(error);
+      return ["", err];
+    });
+
+    stream.on("finish", () => {
+      console.log("Invoice PDF uploaded successfully!");
+    });
+    console.log("signer url", signedUrl);
+    stream.end(pdfBuffer);
+    return signedUrl;
+  } catch (error) {
+    console.log("Error while uploading invoice pdf to fireabse storage", error);
+    return error;
+  }
+};
+
+module.exports = { GeneratePDF, GenerateInvoicePDF };
