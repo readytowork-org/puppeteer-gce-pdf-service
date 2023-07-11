@@ -42,10 +42,6 @@ const GeneratePDF = async (data) => {
   });
   await browser.close();
 
-  console.log(
-    "bucket===",
-    process?.env?.ASIA_NORTHEAST1_GCE_FIREBASE_STORAGE_BUCKET
-  );
   // upload to firebase storage
   try {
     const bucketRef = storage.bucket(
