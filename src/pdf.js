@@ -3,7 +3,7 @@ const pug = require("pug");
 const puppeteer = require("puppeteer");
 const { storage } = require("./firebase");
 const dotenv = require("dotenv");
-const envPath = path.resolve(__dirname, "..", ".env");
+const envPath = path.resolve(__dirname, ".env");
 dotenv.config({ path: envPath });
 
 const GeneratePDF = async (data) => {

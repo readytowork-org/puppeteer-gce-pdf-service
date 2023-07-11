@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const dotenv = require("dotenv");
 const path = require("path");
-const envPath = path.resolve(__dirname, "..", ".env");
+const envPath = path.resolve(__dirname, ".env");
 dotenv.config({ path: envPath });
 
 const serviceAccountBuffer = Buffer.from(
