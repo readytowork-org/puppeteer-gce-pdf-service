@@ -2,6 +2,7 @@ const path = require("path");
 const pug = require("pug");
 const puppeteer = require("puppeteer");
 const { storage } = require("./firebase");
+require("dotenv").config();
 
 const GeneratePDF = async (data) => {
   // pug templaing fo pdf
@@ -40,9 +41,16 @@ const GeneratePDF = async (data) => {
     },
   });
   await browser.close();
+
+  console.log(
+    "bucket===",
+    process?.env?.ASIA_NORTHEAST1_GCE_FIREBASE_STORAGE_BUCKET
+  );
   // upload to firebase storage
   try {
-    const bucketRef = storage.bucket("gs://lp-designer.appspot.com");
+    const bucketRef = storage.bucket(
+      `gs://${process?.env?.ASIA_NORTHEAST1_GCE_FIREBASE_STORAGE_BUCKET}`
+    );
     const file = bucketRef.file(`simulation_pdf/${Date.now().toString()}.pdf`);
     const signedUrl = await file.getSignedUrl({
       action: "read",
@@ -99,7 +107,9 @@ const GenerateInvoicePDF = async (data) => {
 
   // upload to firebase storage
   try {
-    const bucketRef = storage.bucket("gs://lp-designer.appspot.com");
+    const bucketRef = storage.bucket(
+      `gs://${process?.env?.ASIA_NORTHEAST1_GCE_FIREBASE_STORAGE_BUCKET}`
+    );
     const file = bucketRef.file(`invoice/${Date.now().toString()}.pdf`);
     const signedUrl = await file.getSignedUrl({
       action: "read",
