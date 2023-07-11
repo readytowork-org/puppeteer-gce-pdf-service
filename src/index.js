@@ -1,7 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const envPath = path.resolve(__dirname, "..", ".env");
+dotenv.config({ path: envPath });
 
 const { GeneratePDF, GenerateInvoicePDF } = require("./pdf");
 
