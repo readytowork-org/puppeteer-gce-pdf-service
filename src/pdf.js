@@ -100,7 +100,11 @@ const GenerateInvoicePDF = async (data) => {
   });
   await browser.close();
   // return pdfBuffer;
-
+  console.log(
+    "env bucket",
+    process?.env?.ASIA_NORTHEAST1_GCE_FIREBASE_STORAGE_BUCKET,
+    process?.env?.ASIA_NORTHEAST1_PROJECT_ID
+  );
   // upload to firebase storage
   try {
     const bucketRef = storage.bucket(
