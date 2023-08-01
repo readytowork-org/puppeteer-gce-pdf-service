@@ -16,6 +16,7 @@ const GeneratePDF = async (data) => {
   // if new options added, update in pdf template
   data.forEach((item) => {
     if (optionsSubCategory.includes(item.sub_category_title)) {
+      console.log("log answer: ", item.questions[0].answer);
       const parsedAnswers = JSON.parse(item.questions[0].answer);
       item.questions[0].answer = parsedAnswers;
     }
