@@ -56,6 +56,10 @@ html
           else
             p=item.answer || "---"
 
+          each answer2_data in item.answer2
+            h4=answer2_data.key.slice(11).replace("_", "") 
+            p=answer2_data.value || "---"
+
       else if response.sub_category_title == "オプション" || response.sub_category_title == "制作プラン"
         each item in response.questions 
             h4=item.question 
