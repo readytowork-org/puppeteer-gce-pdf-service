@@ -66,7 +66,18 @@ html
             each option in item.answer
               p=option.title
               img.image(src=option.image_url)
-              p=option.price + '円'
+
+              if option.title == "スタジオ手配" && option.price == 0
+                p="実費"
+
+              if option.title == "広告配信" && item.adBudget != null
+                p= item.adBudget + 50000 + '円'
+              else if option.title == "広告配信" && adBudget == null
+                p=option.price + '円'
+
+              if option.title != "スタジオ手配" && option.title != "広告配信"
+                 p=option.price + '円'
+              
               if option.title== "モデルキャスティング"
                 p='希望人数:' + item.modelCasting.noOfModel
                 p='備考:'+item.modelCasting.remarks
